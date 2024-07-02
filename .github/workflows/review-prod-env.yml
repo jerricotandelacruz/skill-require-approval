@@ -1,0 +1,36 @@
+name: Review Prod Env
+
+on:
+  workflow_dispatch:
+    inputs:
+      selected_environment:
+        type: choice
+        description: SELECT ENVIRONMENT
+        required: true
+        default: test
+        options:
+          - prod
+          - test
+
+jobs:
+  test-env:
+    if: github.event.inputs.selected_environment == 'test'
+    name: Deploy to testing
+    environment:
+      name: Test
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test Environment
+        run: echo "${{ vars.VALUE }}"
+
+  prod-env:
+    if: github.event.inputs.selected_environment == 'prod'
+    name: Deploy to production
+    environment:
+      name: Prod
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test Environment
+        run: echo "${{ vars.VALUE }}"
