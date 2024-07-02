@@ -1,0 +1,17 @@
+on:
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  approved:
+    if: github.event.review.state == 'APPROVED'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log this PR Status
+        run: echo "This PR was approved"
+
+       # Merge the pull open pull request
+      - name: Merge Pull Request
+        run: gh pr merge --merge --delete-branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
