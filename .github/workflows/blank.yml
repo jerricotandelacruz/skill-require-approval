@@ -12,7 +12,6 @@ on:
 jobs:
   build-and-deploy-in-acr:
     runs-on: ubuntu-latest
-    environment: ${{ github.event.inputs.selected_environment }}
     steps:
       - name: Test Environment
         run: echo "${{ vars.VALUE }}"
