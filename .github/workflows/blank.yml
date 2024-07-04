@@ -1,0 +1,23 @@
+name: Build and Publish Image
+run-name: Build and Publish Image [${{inputs.selected_environment}}]
+
+on:
+  workflow_dispatch:
+    inputs:
+      selected_environment:
+        type: choice
+        description: SELECT ENVIRONMENT
+        required: true
+        default: test
+        options: 
+        - prod
+        - uat
+        - test
+
+jobs:
+  build-and-deploy-in-acr:
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.selected_environment }}
+    steps:
+      - name: Test Environment
+        run: echo "${{ vars.VALUE }}"
