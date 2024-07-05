@@ -16,3 +16,18 @@ jobs:
     steps:
       - name: Test Environment
         run: echo "${{ vars.VALUE }}"
+
+      - name: Setup Workflow Parameters
+        uses: microsoft/variable-substitution@v1 
+        with:
+          files: ./parameters.json
+        env:
+          parameters.env.value: ${{ vars.HOME_URL }}
+          parameters.appSettings.value.Workflows.SampleOne.FlowState: 'FIRST'
+          parameters.appSettings.value.Workflows.SampleTwo.FlowState: 'SECOND'
+
+      - name: Display Prameters
+        run: echo "$(<parameters.json )"
+
+      
+          
